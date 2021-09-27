@@ -26,7 +26,8 @@ async fn run() -> Result<()> {
         // println!("{}", post);
         // dbg!(post);
         // println!("{}|{}|{}|{}", post.id, post.title, )
-        println!("{:?}", post);
+        let json = serde_json::to_string(&post)?;
+        println!("{}", json);
     }
 
     Ok(())
@@ -34,14 +35,18 @@ async fn run() -> Result<()> {
 
 async fn get_all_posts(pool: &SqlitePool) -> Result<Vec<Post>> {
     let sql = SqlBuilder::select_from("posts")
-    .field("id")
-    .field("title")
-    .field("date")
-    .field("published")
+    // .field("id")
+    // .field("title")
+    // .field("date")
+    // .field("published")
     .order_asc("id")
     .sql()?;
 
-    let posts = sqlx::query_as::<_, Post>(&sql)
+    // let posts = sqlx::query_as::<_, Post>(&sql)
+    // .fetch_all(pool)
+    // .await?;
+    
+    let posts: Vec<Post> = sqlx::query_as(&sql)
     .fetch_all(pool)
     .await?;
 
