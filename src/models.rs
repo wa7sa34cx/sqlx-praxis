@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 // use derive_more::{Add, Display, From, Into};
 // use derive_more::{From, Into};
 // use sqlx::FromRow
@@ -11,4 +11,8 @@ pub struct Post {
     pub title: String,
     pub date: String,
     pub published: bool,
+}
+
+pub struct NewPost {
+    pub title: &'static str,
 }
